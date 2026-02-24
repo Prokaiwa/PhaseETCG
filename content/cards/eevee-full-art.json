@@ -1,1 +1,23 @@
-{"id":"12","title":"Eevee Full Art","slug":"eevee-full-art","images":["https://images.pokemontcg.io/sv2/198.png"],"description":"Full Art Eevee from Paldea Evolved. Sweet and charming Japanese artwork.","price":18.00,"currency":"USD","condition":"Mint","category":"Pokémon","subcategory":"Full Art","rarity":"Ultra Rare","set":"Paldea Evolved","cardNumber":"198/193","graded":false,"quantity":0,"featured":false,"sold":true,"createdAt":"2025-01-05","views":201}
+{
+  "id": "12",
+  "title": "Eevee Full Art",
+  "slug": "eevee-full-art",
+  "images": [
+    "/uploads/eevee-full-art.png"
+  ],
+  "description": "Full Art Eevee from Paldea Evolved. Sweet and charming Japanese artwork.",
+  "price": 18.0,
+  "currency": "USD",
+  "condition": "Mint",
+  "category": "Pok\u00e9mon",
+  "subcategory": "Full Art",
+  "rarity": "Ultra Rare",
+  "set": "Paldea Evolved",
+  "cardNumber": "198/193",
+  "graded": false,
+  "quantity": 0,
+  "featured": false,
+  "sold": true,
+  "createdAt": "2025-01-05",
+  "views": 201
+}

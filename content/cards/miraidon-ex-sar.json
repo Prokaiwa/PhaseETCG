@@ -1,1 +1,24 @@
-{"id":"13","title":"Miraidon EX SAR","slug":"miraidon-ex-sar","images":["https://images.pokemontcg.io/sv1/244.png"],"description":"Special Art Rare Miraidon EX from Scarlet & Violet base set.","price":35.00,"currency":"USD","condition":"Near Mint","category":"Pokémon","subcategory":"EX","rarity":"Ultra Rare","set":"Scarlet & Violet","cardNumber":"244/198","graded":false,"quantity":2,"featured":false,"sold":false,"createdAt":"2025-02-08","views":145,"paypalSell":true}
+{
+  "id": "13",
+  "title": "Miraidon EX SAR",
+  "slug": "miraidon-ex-sar",
+  "images": [
+    "/uploads/miraidon-ex-sar.png"
+  ],
+  "description": "Special Art Rare Miraidon EX from Scarlet & Violet base set.",
+  "price": 35.0,
+  "currency": "USD",
+  "condition": "Near Mint",
+  "category": "Pok\u00e9mon",
+  "subcategory": "EX",
+  "rarity": "Ultra Rare",
+  "set": "Scarlet & Violet",
+  "cardNumber": "244/198",
+  "graded": false,
+  "quantity": 2,
+  "featured": false,
+  "sold": false,
+  "createdAt": "2025-02-08",
+  "views": 145,
+  "paypalSell": true
+}

@@ -1,1 +1,23 @@
-{"id":"11","title":"Lugia V Alt Art","slug":"lugia-v-alt-art","images":["https://images.pokemontcg.io/swsh11/186.png"],"description":"Alternate Art Lugia V from Paradigm Trigger. Stunning Japanese card art.","price":42.00,"currency":"USD","condition":"Excellent","category":"Pokémon","subcategory":"V","rarity":"Ultra Rare","set":"Paradigm Trigger","cardNumber":"102/098","graded":false,"quantity":0,"featured":false,"sold":true,"createdAt":"2024-12-20","views":312}
+{
+  "id": "11",
+  "title": "Lugia V Alt Art",
+  "slug": "lugia-v-alt-art",
+  "images": [
+    "/uploads/lugia-v-alt.png"
+  ],
+  "description": "Alternate Art Lugia V from Paradigm Trigger. Stunning Japanese card art.",
+  "price": 42.0,
+  "currency": "USD",
+  "condition": "Excellent",
+  "category": "Pok\u00e9mon",
+  "subcategory": "V",
+  "rarity": "Ultra Rare",
+  "set": "Paradigm Trigger",
+  "cardNumber": "102/098",
+  "graded": false,
+  "quantity": 0,
+  "featured": false,
+  "sold": true,
+  "createdAt": "2024-12-20",
+  "views": 312
+}
