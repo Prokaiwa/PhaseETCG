@@ -12,7 +12,7 @@ public/admin/
 .env*.local
 
 # TinaCMS generated files
-.tina/__generated__/
+.
 
 # OS / editor files
 .DS_Store
