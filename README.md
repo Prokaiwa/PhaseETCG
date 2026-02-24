@@ -2,47 +2,22 @@
 
 > Authentic Japanese Pokémon Cards — Direct From Japan.
 
-A professional e-commerce site for selling Japanese Pokémon cards. Built with React, TinaCMS, PayPal cart integration, and eBay listing links. Deployed on Vercel with automatic updates via GitHub.
+Welcome! This is your store's complete guide. Whether you want to add a new card, update your PayPal email, or eventually make code changes — everything you need to know is in here. Read it top to bottom once and you'll have a solid understanding of how everything works.
+
+**You don't need to know how to code to run this store.** TinaCMS handles everything day-to-day. The code sections are here for when you're ready to go deeper.
 
 ---
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
 - [How the Site Works](#how-the-site-works)
-- [File Structure](#file-structure)
+- [Setting Up Your Computer](#setting-up-your-computer)
 - [Managing Your Store with TinaCMS](#managing-your-store-with-tinacms)
+- [File Structure](#file-structure)
 - [Making Code Changes](#making-code-changes)
-- [Taking Over Ownership](#taking-over-ownership)
+- [Taking Over Full Ownership](#taking-over-full-ownership)
 - [Future Improvements](#future-improvements)
 - [Using Claude AI for Help](#using-claude-ai-for-help)
-
----
-
-## Quick Start
-
-### Running the site locally
-
-```bash
-# Install dependencies (first time only)
-npm install
-
-# Run with TinaCMS admin panel enabled
-npx tinacms dev -c "npm run dev"
-
-# Site: http://localhost:5173
-# Admin: http://localhost:5173/admin/index.html
-```
-
-### Deploying changes
-
-Any time you push to GitHub, Vercel automatically rebuilds and redeploys the site. No manual deploy steps needed.
-
-```bash
-git add .
-git commit -m "describe what you changed"
-git push
-```
 
 ---
 
@@ -53,336 +28,433 @@ git push
 ```
 Your Card Photos & Info
         ↓
-   TinaCMS Admin         ← your friend edits cards here
+   TinaCMS Admin         ← you edit cards here (no code needed)
         ↓
-  GitHub Repository      ← stores all content as JSON files
+  GitHub Repository      ← stores all your content as files
         ↓
-  Vercel (auto-deploy)   ← rebuilds site on every push
+  Vercel (auto-deploy)   ← rebuilds the site automatically
         ↓
     Live Website         ← customers browse and buy
 ```
 
+Every time you save a change in TinaCMS, it automatically updates GitHub, which triggers Vercel to rebuild your site. The whole process takes about 2 minutes and happens completely on its own.
+
 ### Checkout flow
 
-- **PayPal cards** — customer clicks "Add to Cart" → items collect in the site cart → clicks "Checkout with PayPal" → sent to PayPal with all items pre-filled
+- **PayPal cards** — customer clicks "Add to Cart" → items collect in the site cart → clicks "Checkout with PayPal" → sent to PayPal with all items ready to pay
 - **eBay cards** — customer clicks "Buy on eBay" → goes directly to your eBay listing
-- **Both** — you can enable both options on the same card
-
-### Content flow
-
-When you edit a card in TinaCMS and click Save:
-1. TinaCMS commits the change to GitHub
-2. Vercel detects the new commit and rebuilds the site
-3. Live site updates within ~2 minutes
+- You can enable both options on the same card
 
 ---
 
-## File Structure
+## Setting Up Your Computer
 
-```
-phase-e-tcg/
-│
-├── content/                    ← ALL your card data lives here
-│   ├── cards/                  ← one JSON file per card
-│   │   ├── charizard-vstar.json
-│   │   └── ...
-│   └── settings/
-│       └── site.json           ← PayPal email, contact info, Instagram
-│
-├── public/
-│   ├── uploads/                ← card photos go here (via TinaCMS media)
-│   ├── favicon.ico             ← browser tab icon
-│   └── og-image.png            ← social share preview image
-│
-├── src/
-│   ├── components/
-│   │   ├── layout/
-│   │   │   ├── Header.tsx      ← navigation + cart icon
-│   │   │   └── Footer.tsx      ← footer links + Instagram
-│   │   ├── shop/
-│   │   │   └── ProductCard.tsx ← individual card tile in the grid
-│   │   └── ui/                 ← buttons, badges, inputs etc.
-│   │
-│   ├── pages/
-│   │   ├── Index.tsx           ← homepage
-│   │   ├── Shop.tsx            ← shop with filters
-│   │   ├── ProductDetail.tsx   ← individual card page
-│   │   ├── About.tsx           ← about page
-│   │   ├── Contact.tsx         ← contact form
-│   │   ├── FAQ.tsx             ← FAQ page
-│   │   ├── Shipping.tsx        ← shipping & returns page
-│   │   ├── SoldArchive.tsx     ← sold cards archive
-│   │   └── NotFound.tsx        ← 404 page
-│   │
-│   ├── config/
-│   │   └── site.ts             ← reads PayPal email from site.json
-│   │
-│   ├── context/
-│   │   └── CartContext.tsx     ← manages the shopping cart state
-│   │
-│   ├── data/
-│   │   └── products.ts         ← loads all card JSON files automatically
-│   │
-│   └── types/
-│       └── product.ts          ← defines what fields a card has
-│
-├── tina/
-│   └── config.ts               ← TinaCMS schema (card fields, settings)
-│
-├── package.json                ← project dependencies and build commands
-├── vercel.json                 ← Vercel routing config
-└── .env.example                ← template for environment variables
+You'll need this if you ever want to preview the site locally or make code changes. If you just want to manage cards via TinaCMS on the live site, you can skip this section entirely.
+
+### Step 1 — Install the tools
+
+**Install Node.js** (the engine that runs the site):
+1. Go to [nodejs.org](https://nodejs.org)
+2. Download the **LTS** version
+3. Open the downloaded file and follow the installer
+
+**Install VS Code** (a free code editor — highly recommended):
+1. Go to [code.visualstudio.com](https://code.visualstudio.com)
+2. Download and install it
+
+### Step 2 — Open Terminal
+
+Terminal is a text-based way to talk to your computer. Don't be intimidated — you'll mostly be copy-pasting commands.
+
+- **On Mac:** Press `Cmd + Space`, type `Terminal`, press Enter
+- **On Windows:** Press the Windows key, type `cmd`, press Enter
+
+### Step 3 — Navigate to the project folder
+
+In Terminal, type this and press Enter:
+
+```bash
+cd ~/Desktop/phase-e-tcg
 ```
 
-### Key files explained
+This tells Terminal to "go into" the project folder. You need to do this every time you open a new Terminal window before running any commands.
 
-| File | What it does | When to edit it |
-|------|-------------|-----------------|
-| `content/cards/*.json` | Card listings | Use TinaCMS instead |
-| `content/settings/site.json` | PayPal email, contact, Instagram | Use TinaCMS Site Settings |
-| `src/index.css` | All colours, fonts, spacing | Changing the look/feel |
-| `tina/config.ts` | TinaCMS field definitions | Adding new card fields |
-| `src/pages/About.tsx` | About page content | Updating your story |
-| `src/pages/FAQ.tsx` | FAQ content | Adding/editing questions |
-| `src/pages/Shipping.tsx` | Shipping policy | Updating shipping info |
+### Step 4 — Install dependencies
+
+Run this once when you first set up the project:
+
+```bash
+npm install
+```
+
+This downloads all the code libraries the site needs. It takes a minute or two. You'll see a lot of text scroll by — that's normal.
+
+### Step 5 — Run the site locally
+
+```bash
+npx tinacms dev -c "npm run dev"
+```
+
+After it starts up, open your browser and go to:
+- **Your site:** http://localhost:5173
+- **Admin panel:** http://localhost:5173/admin/index.html
+
+To stop it, go back to Terminal and press `Ctrl + C`.
+
+### Understanding Terminal basics
+
+| What you want to do | Command |
+|---------------------|---------|
+| Go into a folder | `cd folder-name` |
+| Go back one folder | `cd ..` |
+| See what's in the current folder | `ls` |
+| Run the site locally | `npx tinacms dev -c "npm run dev"` |
+| Save changes to GitHub | `git add . && git commit -m "your message" && git push` |
+| Get latest changes from GitHub | `git pull` |
 
 ---
 
 ## Managing Your Store with TinaCMS
 
-TinaCMS is your store's control panel. No code needed.
+This is where you'll spend most of your time. No coding required.
 
-### Accessing the admin
+### Accessing the admin panel
 
-- **Live site:** `https://your-site.vercel.app/admin/index.html`
-- **Local:** `http://localhost:5173/admin/index.html` (run `npx tinacms dev -c "npm run dev"` first)
+- **On the live site:** `https://your-site.vercel.app/admin/index.html`
+- **On your computer:** `http://localhost:5173/admin/index.html` (only works when running locally)
 
 ### Adding a new card
 
 1. Open the admin panel
 2. Click **Cards** in the left sidebar
 3. Click **Create new**
-4. Fill in all the fields (title, price, condition, etc.)
-5. Upload your card photo via the image field
+4. Fill in the fields:
+   - **Title** — the full card name e.g. "Charizard VSTAR"
+   - **Slug** — the URL-friendly version e.g. "charizard-vstar" (use hyphens, no spaces)
+   - **Price** — in USD, numbers only e.g. `45`
+   - **Condition** — pick from the dropdown
+   - **Set** — the Japanese set name
+   - **Card Number** — e.g. `118/100`
+   - **Quantity** — how many you have in stock
+   - **Featured** — toggle ON to show it on the homepage
+5. Upload your card photo (see below)
 6. Set checkout options:
-   - Toggle **Enable PayPal Cart** → shows "Add to Cart" button
-   - Paste an eBay URL → shows "Buy on eBay" button
-   - You can enable both on the same card
-7. Click **Save** — the site updates automatically within 2 minutes
+   - Toggle **Enable PayPal Cart** ON → shows "Add to Cart" button
+   - Paste an eBay listing URL → shows "Buy on eBay" button
+   - You can enable both
+7. Click **Save** — live site updates within ~2 minutes
+
+### Uploading card photos
+
+1. In the admin panel, look for the **Media** icon in the sidebar
+2. Click **Upload** and choose your photo from your computer
+3. When editing a card, click the image field and select your uploaded photo
+
+**Tips for card photos:**
+- Photograph cards in good natural light
+- Use a plain white or dark background
+- Name files clearly before uploading e.g. `charizard-vstar-nm.jpg`
+- Both JPG and PNG formats work fine
 
 ### Marking a card as sold
 
 1. Open the card in TinaCMS
-2. Toggle **Sold** to ON
-3. Save — the card moves to the Sold Archive automatically
+2. Toggle the **Sold** switch to ON
+3. Click Save
 
-### Uploading card photos
-
-1. In the admin panel, click the **Media** icon (usually bottom left)
-2. Click **Upload** and select your photo
-3. When editing a card, click the image field and select your uploaded photo
-
-**Tip:** Name your photos clearly before uploading e.g. `charizard-vstar-psa10.jpg`
+The card automatically moves from the Shop to the Sold Archive. Customers can still see it there, which helps build trust by showing your sales history.
 
 ### Updating site settings
 
 1. Click **Site Settings** in the left sidebar
-2. Update your **PayPal Business Email** — this is where payments go
-3. Update your **Contact Email**
-4. Add your **Instagram URL**
-5. Save
+2. Update:
+   - **PayPal Business Email** — where all PayPal payments go. Double-check this is correct!
+   - **Contact Email** — shown on the contact page
+   - **Instagram URL** — your full Instagram URL e.g. `https://www.instagram.com/yourhandle`
+3. Click Save
+
+---
+
+## File Structure
+
+Here's a map of the project so you know where everything lives:
+
+```
+phase-e-tcg/
+│
+├── content/                    ← all your card data lives here
+│   ├── cards/                  ← one file per card (edit via TinaCMS)
+│   │   ├── charizard-vstar.json
+│   │   └── ...
+│   └── settings/
+│       └── site.json           ← PayPal email, contact info, Instagram
+│
+├── public/
+│   ├── uploads/                ← card photos (uploaded via TinaCMS media)
+│   ├── favicon.ico             ← the icon in the browser tab
+│   └── og-image.png            ← image shown when sharing on social media
+│
+├── src/
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Header.tsx      ← navigation bar at the top
+│   │   │   └── Footer.tsx      ← footer at the bottom
+│   │   └── shop/
+│   │       └── ProductCard.tsx ← card tiles in the shop grid
+│   │
+│   ├── pages/
+│   │   ├── Index.tsx           ← homepage
+│   │   ├── Shop.tsx            ← shop page with filters
+│   │   ├── ProductDetail.tsx   ← individual card page
+│   │   ├── About.tsx           ← about page
+│   │   ├── Contact.tsx         ← contact form
+│   │   ├── FAQ.tsx             ← FAQ page
+│   │   ├── Shipping.tsx        ← shipping & returns info
+│   │   └── SoldArchive.tsx     ← sold cards archive
+│   │
+│   └── config/
+│       └── site.ts             ← reads your PayPal email from site.json
+│
+├── tina/
+│   └── config.ts               ← defines what fields appear in TinaCMS
+│
+└── package.json                ← project settings and build commands
+```
+
+### Key files at a glance
+
+| File | What it controls | How to edit it |
+|------|-----------------|----------------|
+| `content/cards/*.json` | All card listings | Use TinaCMS — don't edit directly |
+| `content/settings/site.json` | PayPal email, contact, Instagram | Use TinaCMS Site Settings |
+| `src/pages/About.tsx` | Your About page text | Open in VS Code and edit |
+| `src/pages/FAQ.tsx` | FAQ questions and answers | Open in VS Code and edit |
+| `src/pages/Shipping.tsx` | Shipping policy text | Open in VS Code and edit |
+| `src/index.css` | Colours, fonts, spacing | Open in VS Code and edit |
 
 ---
 
 ## Making Code Changes
 
-For anything beyond adding cards, you'll need to edit the code directly. Here's a practical guide.
+This section is for when you want to go beyond TinaCMS and customise the site itself. You don't need to tackle this right away — the site is fully functional as-is.
 
-### Prerequisites
+### How to save changes to GitHub
 
-- A code editor — [VS Code](https://code.visualstudio.com/) is free and excellent
-- Node.js installed — [nodejs.org](https://nodejs.org)
-- Basic terminal comfort
+After editing any file, you need to push it to GitHub so Vercel rebuilds the live site. Here's how:
+
+Open Terminal, make sure you're in the project folder (`cd ~/Desktop/phase-e-tcg`), then run:
+
+```bash
+git add .
+git commit -m "describe what you changed"
+git push
+```
+
+The three commands do the following:
+- `git add .` — tells git to include all your changes
+- `git commit -m "..."` — saves a snapshot with a description (write anything that makes sense to you)
+- `git push` — sends everything up to GitHub
+
+Vercel detects the new commit and automatically rebuilds your site within a few minutes.
+
+**Example:**
+```bash
+git add .
+git commit -m "Updated FAQ with new shipping question"
+git push
+```
+
+### Editing page text (About, FAQ, Shipping)
+
+1. Open VS Code
+2. Go to File → Open Folder → select the `phase-e-tcg` folder on your Desktop
+3. In the left sidebar, go to `src/pages/`
+4. Open the page you want to edit e.g. `About.tsx`
+5. Find the text and change it
+6. Save the file (`Cmd + S` on Mac, `Ctrl + S` on Windows)
+7. Push to GitHub (see above)
+
+**Important:** Only change plain text. Don't touch anything inside `< >` angle brackets unless you know what you're doing. For example:
+
+```
+<h1>About Phase-E TCG</h1>
+```
+
+You can safely change `About Phase-E TCG` but leave `<h1>` and `</h1>` alone.
 
 ### Changing colours
 
-Open `src/index.css` and find the `:root` section at the top. The main colours are:
+Open `src/index.css` in VS Code. Near the top you'll see:
 
 ```css
 --primary: 222 72% 42%;      /* main blue */
 --accent: 47 100% 51%;       /* yellow highlight */
---destructive: 11 91% 47%;   /* red (sold badges etc.) */
 ```
 
-Colours use HSL format (Hue, Saturation, Lightness). Use a tool like [hslpicker.com](https://hslpicker.com) to find the values you want.
-
-### Editing page text
-
-Most static text (About, FAQ, Shipping, Contact) lives directly in the page files under `src/pages/`. Open the relevant file in VS Code, find the text, change it, save, and push to GitHub.
-
-### Adding a new card field
-
-1. Add the field to `src/types/product.ts` (TypeScript type definition)
-2. Add the field to `tina/config.ts` (so it appears in TinaCMS)
-3. Display it in `src/pages/ProductDetail.tsx` or `src/components/shop/ProductCard.tsx`
-
-### Changing the logo
-
-The "P-E" logo is text-based. To change it, search for `P-E` in `src/components/layout/Header.tsx` and `src/components/layout/Footer.tsx` and update the text. To use an actual image logo, replace the div with an `<img>` tag pointing to your logo file in `public/`.
-
-### Environment variables
-
-Never commit secret keys to GitHub. Store them in:
-- **Local development:** `.env` file (already in `.gitignore`)
-- **Production:** Vercel Dashboard → Settings → Environment Variables
-
-Required variables:
-```
-TINA_CLIENT_ID=your_tina_client_id
-TINA_TOKEN=your_tina_token
-TINA_BRANCH=main
-```
+Use [hslpicker.com](https://hslpicker.com) to find the values for any colour, paste them in, save, and push to GitHub.
 
 ---
 
-## Taking Over Ownership
+## Taking Over Full Ownership
 
-When you're ready to fully own this site, follow these steps in order.
+Currently the site is connected to accounts set up during development. Here's how to fully take over so everything is in your name.
 
-### Step 1 — Transfer the GitHub repository
+### Step 1 — Create your accounts
 
-1. Go to the current repo on GitHub
+Sign up for free accounts on:
+- [GitHub](https://github.com) — stores your site's code
+- [Vercel](https://vercel.com) — hosts your live site
+- [TinaCloud](https://app.tina.io) — your content management system
+- [PayPal Business](https://paypal.com/business) — receives payments
+
+### Step 2 — Transfer the GitHub repository
+
+The current owner needs to:
+1. Go to the GitHub repo
 2. Settings → Danger Zone → **Transfer ownership**
-3. Enter your GitHub username as the new owner
-4. Confirm — the repo now lives under your account
+3. Enter your GitHub username
 
-### Step 2 — Connect Vercel to your account
+You'll receive an email — accept it and the repo is yours.
 
-1. Sign up at [vercel.com](https://vercel.com) with your GitHub account
-2. Click **Add New Project** → Import the transferred repo
-3. Add your environment variables (TINA_CLIENT_ID, TINA_TOKEN, TINA_BRANCH=main)
-4. Deploy — your site is now under your Vercel account
-5. Add your custom domain if you have one (Vercel Dashboard → Domains)
+### Step 3 — Set up Vercel
 
-### Step 3 — Set up your own TinaCMS project
+1. Log into [vercel.com](https://vercel.com) with your GitHub account
+2. Click **Add New Project** → import the transferred repo
+3. Add these Environment Variables (Vercel will ask for them):
+   - `TINA_CLIENT_ID` — from TinaCloud (Step 4)
+   - `TINA_TOKEN` — from TinaCloud (Step 4)
+   - `TINA_BRANCH` — type `main`
+4. Click **Deploy**
+
+### Step 4 — Set up TinaCloud
 
 1. Go to [app.tina.io](https://app.tina.io)
-2. Sign up with your GitHub account
-3. Click **New Project** → connect your transferred repo
-4. In Configuration → GitHub Authoring → select **Act as bot**
-   - This means CMS edits show as "tinabot" in GitHub, keeping your commit history clean
-5. Copy your new **Client ID** and **Token**
-6. Update Vercel environment variables with your new credentials
-7. Trigger a redeploy on Vercel
+2. Sign in with your GitHub account
+3. Click **New Project** → select your transferred repo
+4. In **Configuration → GitHub Authoring** → select **Act as bot**
+   - This means TinaCMS edits show up in GitHub as "tinabot" — keeps your history clean
+5. Copy your **Client ID** and **Token**
+6. Go back to Vercel → Settings → Environment Variables and update `TINA_CLIENT_ID` and `TINA_TOKEN` with your new values
+7. In Vercel → Deployments → click **Redeploy**
 
-### Step 4 — Set up PayPal Business
+### Step 5 — Add a custom domain (recommended)
 
-1. Create or upgrade to a [PayPal Business account](https://paypal.com/business) (free)
-2. Go to TinaCMS admin → Site Settings
-3. Update **PayPal Business Email** with your PayPal email
-4. Test a checkout to confirm payments go to your account
+A domain like `phase-etcg.com` looks much more professional than the default Vercel URL.
 
-### Step 5 — Update contact details
+1. Buy a domain from [Namecheap](https://namecheap.com) (~$15/year)
+2. In Vercel → your project → **Domains** → add your domain
+3. Follow Vercel's instructions to connect it
 
-In TinaCMS → Site Settings, update:
-- Contact email
-- Instagram URL
-- Site name and tagline if desired
+### Step 6 — Update your PayPal email
+
+1. Log into your TinaCMS admin
+2. Site Settings → **PayPal Business Email** → enter your email
+3. Save, then do a test checkout to confirm payments go to you
 
 ---
 
 ## Future Improvements
 
-The site is fully functional but here are worthwhile upgrades to consider as your store grows:
+The site is fully functional for day-to-day selling. Here are the most worthwhile upgrades as your business grows:
 
-### High priority
+### Do these soon
 
-**Real email newsletter** — The subscribe form currently just shows a thank you message. To actually collect and use emails, look into [Mailchimp](https://mailchimp.com) or [ConvertKit](https://convertkit.com). Both have free tiers and let you send new card announcements to subscribers automatically. This is one of the best ways to build a loyal customer base.
+**Connect a real email newsletter**
+The subscribe form on the homepage currently shows a thank you message but doesn't store emails. Sign up for [Mailchimp](https://mailchimp.com) (free for small lists) and connect it so you can actually email subscribers when new cards drop. This is one of the best ways to build repeat customers. Ask Claude to help you add the integration.
 
-**Shipping calculator** — Currently shipping is handled manually. As volume grows, look into integrating a shipping API like [Shippo](https://goshippo.com) or [EasyPost](https://easypost.com) to show real-time rates at checkout.
+**Add your real card photos**
+Upload proper photos of your actual inventory via the TinaCMS media manager. Good photos are one of the most important factors in getting sales — especially for high-value cards. Show the front, back, and any condition details clearly.
 
-**Custom domain** — Replace the `.vercel.app` URL with your own domain like `phase-etcg.com`. Costs ~$15/year from [Namecheap](https://namecheap.com) or [Google Domains](https://domains.google). Set it up in Vercel → Project → Domains.
+**Set up Google Analytics**
+Free tool that shows you how many people visit your site, where they come from, and which cards get the most views. Go to [analytics.google.com](https://analytics.google.com), create an account, and ask Claude to help you add the tracking code.
 
-### Medium priority
+### Grow with these
 
-**Google Analytics** — Add GA4 to understand where your customers come from, which cards get the most views, and how people find your site. Free, and very useful for growing the business.
+**Custom domain** — Replace the `.vercel.app` URL with your own domain. Looks professional and helps with Google rankings.
 
-**Multiple card images** — The card schema supports multiple images but the UI only shows the first one. Adding an image carousel on the product detail page would let you show front, back, and condition photos — great for building buyer confidence.
+**Multiple card photos** — The site supports multiple images per card but currently shows only one. Adding a photo carousel on the card detail page would let buyers see front, back, and close-up condition shots. Great for high-value cards.
 
-**Wishlist / notify me** — Let customers sign up to be notified when a specific card is back in stock or when a similar card is listed.
+**Instagram feed** — Embed your latest Instagram posts on the homepage. Services like [Behold](https://behold.so) make this easy.
 
-**Instagram feed** — Embed your Instagram feed on the homepage so customers can see your latest posts without leaving the site.
+**Stripe payments** — PayPal is a solid start. Stripe is the other major payment processor with a slightly more seamless checkout (customers don't need a PayPal account). Worth considering once order volume picks up.
 
 ### Longer term
 
-**Stripe payments** — PayPal is great to start but Stripe offers a more customisable checkout experience, lower fees, and better analytics. Worth exploring once order volume picks up.
+**SEO improvements** — Help Google understand your cards better so they show up in search results when people look for specific cards. Ask Claude to walk you through beginner SEO improvements for your site.
 
-**Search engine optimisation (SEO)** — Each card page could have richer meta descriptions and structured data (Schema.org) to help Google understand what you're selling. This helps your cards show up when people search for specific cards on Google.
+**Inventory tracking** — Keep a Google Sheet alongside TinaCMS to track purchase prices, sale prices, and profit per card. Ask Claude to help you design a simple template.
 
-**Inventory management** — As stock grows, consider a simple spreadsheet-to-site pipeline or a proper inventory system to avoid overselling.
+**Back in stock alerts** — Let customers sign up to be notified when a specific card is relisted. Helps convert browsers into buyers even when something is sold out.
 
 ---
 
 ## Using Claude AI for Help
 
-This entire site was built with the help of [Claude](https://claude.ai) — an AI assistant made by Anthropic. Claude is genuinely excellent at helping with web development tasks, even if you have no coding experience.
+This entire site was built using [Claude](https://claude.ai) — an AI assistant made by Anthropic. Claude is exceptionally good at helping with web development tasks, explaining code in plain English, and solving technical problems — even if you have zero coding experience.
 
-### What Claude can help you with
+Think of Claude as a patient expert who explains anything clearly, never makes you feel stupid for asking, and gives you exact steps to follow.
 
-**Making changes to the site:**
-> *"I want to add a 'Buy it Now' price field to each card alongside the regular price. How do I do that?"*
+### Getting started
 
-**Fixing errors:**
-> *"I'm getting this error in my terminal: [paste the error]. What does it mean and how do I fix it?"*
+Go to [claude.ai](https://claude.ai) and create a free account. The free tier handles most tasks well. Claude Pro (paid monthly) is worth it if you find yourself using it a lot.
 
-**Understanding the code:**
-> *"Can you explain what this file does and what I'd need to change if I wanted to add a dark mode toggle?"*
+### What to ask Claude
 
-**Writing content:**
-> *"Can you write a compelling About page for a Japanese Pokémon card shop that ships internationally from Japan?"*
+**When something breaks:**
+> "I'm getting this error when I run the site. What does it mean and how do I fix it?"
+> *(paste the full error message)*
 
-**Adding new features:**
-> *"I want to add a section on the homepage that shows the 3 most recently added cards. How would I do that?"*
+**When you want to change something:**
+> "I want to change the blue colour on my site to a darker navy. The site uses Tailwind CSS and the colour is in src/index.css. Can you tell me exactly what to change?"
 
-**Debugging TinaCMS:**
-> *"My TinaCMS build is failing with this error: [paste error]. How do I fix it?"*
+**When you want a new feature:**
+> "I want to add a banner at the top of the shop page that says 'New cards just added!'. How do I do this?"
 
-### Tips for getting the best results from Claude
+**When you don't understand the code:**
+> "Can you explain what this file does in plain English?" *(paste the code)*
 
-1. **Be specific** — Instead of "fix my site", say "the Add to Cart button on mobile is overlapping the price, here's the relevant code: [paste code]"
+**When you need terminal help:**
+> "I edited a file. Can you give me the exact terminal commands to save it to GitHub and make it go live?"
 
-2. **Paste the actual error** — Always paste the full error message from your terminal. Claude can diagnose most errors immediately if you give it the exact text.
+**When you want to learn:**
+> "What is a JSON file? Can you explain it like I've never coded before?"
 
-3. **Give context** — Mention that your site is built with React, Vite, TailwindCSS, and TinaCMS. This helps Claude give you accurate, compatible solutions.
+### Tips for the best results
 
-4. **Ask for terminal commands** — Claude can give you exact terminal commands to run rather than making you edit files manually. Just ask: *"Can you give me the terminal command to do this?"*
+1. **Always mention your tech stack** — Tell Claude your site is built with React, Vite, TailwindCSS, and TinaCMS, deployed on Vercel. This one sentence helps Claude give you advice that actually works with your setup.
 
-5. **Ask follow-up questions** — If something doesn't make sense, just ask Claude to explain it differently or more simply.
+2. **Paste the full error** — Copy the entire error message from your terminal or browser and paste it directly. The more info you give, the better the answer.
 
-6. **Use it to learn** — Ask Claude to explain *why* something works the way it does, not just *how* to fix it. Over time you'll build real understanding of your own site.
+3. **Ask for terminal commands** — Say *"can you give me the exact terminal commands?"* and Claude will give you something you can copy and paste directly.
 
-### Getting started with Claude
+4. **Ask follow-up questions** — If something doesn't make sense just say *"can you explain that more simply?"* Claude never gets impatient.
 
-Go to [claude.ai](https://claude.ai) and sign up for a free account. The free tier is very capable. For heavier usage (longer conversations, more complex projects), Claude Pro is available for a monthly fee.
+5. **Use it to learn** — Once something is working, ask *"can you explain why that worked?"* Over time you'll build real understanding of your own site.
+
+### Example opening message for Claude
+
+> "I have a Pokémon card e-commerce site built with React, Vite, TailwindCSS, and TinaCMS. It's deployed on Vercel and the code is on GitHub. I want to [describe what you want]. Can you help me step by step?"
+
+That gives Claude everything it needs to help you straight away.
 
 ---
 
 ## Tech Stack
 
-| Tool | Purpose |
-|------|---------|
-| [React](https://react.dev) | UI framework |
-| [Vite](https://vitejs.dev) | Build tool |
-| [TypeScript](https://typescriptlang.org) | Type-safe JavaScript |
-| [Tailwind CSS](https://tailwindcss.com) | Styling |
-| [TinaCMS](https://tina.io) | Content management |
-| [React Router](https://reactrouter.com) | Page navigation |
+| Tool | What it does |
+|------|-------------|
+| [React](https://react.dev) | Builds the user interface |
+| [Vite](https://vitejs.dev) | Runs and builds the site |
+| [TypeScript](https://typescriptlang.org) | Adds type safety to JavaScript |
+| [Tailwind CSS](https://tailwindcss.com) | Handles all the styling |
+| [TinaCMS](https://tina.io) | Content management (adding/editing cards) |
+| [React Router](https://reactrouter.com) | Handles navigation between pages |
 | [Radix UI](https://radix-ui.com) | Accessible UI components |
 | [Lucide](https://lucide.dev) | Icons |
-| [Vercel](https://vercel.com) | Hosting & deployment |
-| [GitHub](https://github.com) | Code storage & version control |
-| [PayPal](https://paypal.com) | Payment processing |
+| [Vercel](https://vercel.com) | Hosts and deploys the site |
+| [GitHub](https://github.com) | Stores the code and content |
+| [PayPal](https://paypal.com) | Processes payments |
 
 ---
 
-*Built with ❤️ and Claude AI*
+*Built with love and [Claude AI](https://claude.ai)*
