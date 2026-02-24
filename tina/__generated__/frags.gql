@@ -1,0 +1,38 @@
+fragment CardParts on Card {
+  __typename
+  title
+  slug
+  images
+  description
+  price
+  currency
+  condition
+  category
+  subcategory
+  rarity
+  set
+  cardNumber
+  graded
+  gradingCompany
+  gradeScore
+  population
+  certNumber
+  quantity
+  featured
+  sold
+  createdAt
+  views
+  paypalSell
+  ebayUrl
+}
+
+fragment SettingsParts on Settings {
+  __typename
+  siteName
+  tagline
+  heroHeading
+  heroSubtext
+  contactEmail
+  paypalEmail
+  instagramUrl
+}

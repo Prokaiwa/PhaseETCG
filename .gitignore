@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+public/admin/
+
+# Environment variables (IMPORTANT – keep secrets out of git)
+.env
+.env.local
+.env.production
+.env*.local
+
+# TinaCMS generated files
+.tina/__generated__/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Vite cache
+.vite/
