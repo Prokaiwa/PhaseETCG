@@ -1,19 +1,19 @@
 {
   "id": "3",
-  "title": "Mew EX Full Art",
-  "slug": "mew-ex-full-art-151",
+  "title": "Mega Ampharos EX Bandit Ring",
+  "slug": "mega-ampharos-ex-bandit-ring",
   "images": [
-    "/uploads/mew-ex-full-art.png"
+    "/uploads/ampharos.jpg"
   ],
-  "description": "Full Art Mew EX from the beloved Pok\u00e9mon 151 set. Japanese print with vibrant colors.",
-  "price": 32.0,
+  "description": "Beautiful Mega Ampharos EX card. Japanese print with vibrant colors.",
+  "price": 22,
   "currency": "USD",
   "condition": "Mint",
-  "category": "Pok\u00e9mon",
+  "category": "Pokémon",
   "subcategory": "EX",
   "rarity": "Ultra Rare",
-  "set": "Pok\u00e9mon 151",
-  "cardNumber": "205/165",
+  "set": "XY",
+  "cardNumber": "028/081",
   "graded": false,
   "quantity": 5,
   "featured": true,
